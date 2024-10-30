@@ -8,18 +8,20 @@ const AppStack = createStackNavigator()
 
 export default () => {
   return (
-    <AppStack.Group
-      screenOptions={({navigation}) => ({
-        title: '',
-        headerTransparent: true,
-        headerShown: false,
-        headerShadowVisible: false,
-        cardStyle: {
-          backgroundColor: CoreTheme.white,
-        },
-      })}>
-      <AppStack.Screen name={Routers.HOME} component={Home} />
-      <AppStack.Screen name={Routers.PAYWALL} component={PaywallScreen} />
-    </AppStack.Group>
+    <AppStack.Navigator>
+      <AppStack.Group
+        screenOptions={({navigation}) => ({
+          title: '',
+          headerTransparent: true,
+          headerShown: false,
+          headerShadowVisible: false,
+          cardStyle: {
+            backgroundColor: CoreTheme.white,
+          },
+        })}>
+        <AppStack.Screen name={Routers.HOME} component={Home} />
+        <AppStack.Screen name={Routers.PAYWALL} component={PaywallScreen} />
+      </AppStack.Group>
+    </AppStack.Navigator>
   )
 }
