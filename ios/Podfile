@@ -5,7 +5,7 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, '15.0'
+platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -16,28 +16,12 @@ end
 
 target 'MyApp' do
   config = use_native_modules!
-  use_frameworks!
-  use_modular_headers!
-
-  pod 'Firebase/Core'
-  pod 'GoogleUtilities', :modular_headers => true
 
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  pre_install do |installer|
-      installer.pod_targets.each do |target|
-        # Make some targets static as they throw errors if not
-        if target.name.eql?('react-native-image-picker')
-          def target.build_type;
-            Pod::BuildType.static_library
-          end
-        end
-      end
-    end
 
   target 'MyAppTests' do
     inherit! :complete
